@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Business POS Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+<link href="./css/main.css" rel="stylesheet"/></head>
+<body class="bg-gray-50 font-sans pb-24 text-gray-800 selection:bg-blue-200 overflow-x-hidden">
+<div class="block" id="dashboardScreen">
+<div class="bg-blue-600 text-white px-3 py-2 shadow-md sticky top-0 z-40 flex items-center justify-between min-h-[52px]">
+<div class="max-w-[45%] truncate text-sm font-bold bg-blue-600 pr-1 data-lang" data-bn="আমার দোকান" data-en="My Shop" id="topShopName">
+                My Shop
+            </div>
+<div class="flex-1 text-center px-1 max-w-[30%] overflow-hidden flex flex-col justify-center leading-none">
+<span class="glowing-text text-[9px] font-black text-yellow-300 tracking-tight uppercase block">
+                    Allahardaan
+                </span>
+<span class="glowing-text text-[7.5px] font-medium text-yellow-200 tracking-tighter uppercase block mt-0.5 data-lang" data-bn="বিজনেস সলিউশন" data-en="Business solution">
+                    Business solution
+                </span>
+</div>
+<div class="flex items-center space-x-2 bg-blue-600 pl-1 z-10">
+<div class="flex items-center space-x-1 bg-blue-700 px-2 py-0.5 rounded-full text-[9px] font-bold border border-blue-500 transition-all duration-300" id="connectionStatus">
+<span class="w-1.5 h-1.5 rounded-full bg-gray-400" id="statusDot"></span>
+<span class="text-gray-300" id="statusText">Checking...</span>
+</div>
+<button class="text-lg p-1 hover:text-gray-200 transition active:scale-90" onclick="openSettingsPage()">
+<i class="fa-solid fa-gear"></i>
+</button>
+</div>
+</div>
+<div class="max-w-md mx-auto p-4 space-y-4">
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3">
+<div class="grid grid-cols-3 gap-2 items-center border-b pb-3">
+<div class="text-center border-r">
+<p class="text-xs text-gray-500 data-lang" data-bn="অবशिष्ट ব্যালেন্স" data-en="Balance">Balance</p>
+<p class="text-base font-bold text-green-600"><span class="currency-symbol">৳</span>40</p>
+</div>
+<div class="text-center">
+<p class="text-xs text-gray-500 data-lang" data-bn="আজকের বিক্রি" data-en="Today's Sale">Today's Sale</p>
+<p class="text-base font-bold text-blue-600"><span class="currency-symbol">৳</span>5,008</p>
+</div>
+<div class="flex bg-gray-100 p-0.5 rounded-lg text-xs font-semibold justify-between">
+<button class="bg-blue-600 text-white px-2 py-1 rounded-md shadow-sm data-lang" data-bn="দিন" data-en="Day">Day</button>
+<button class="text-gray-600 px-2 py-1 data-lang" data-bn="মাস" data-en="Month">Month</button>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center text-xs">
+<div class="border-r">
+<p class="text-gray-500 mb-0.5 data-lang" data-bn="আজকের খরচ" data-en="Today's Expense">Today's Expense</p>
+<p class="font-bold text-red-500"><span class="currency-symbol">৳</span>0</p>
+</div>
+<div class="border-r">
+<p class="text-gray-500 mb-0.5 data-lang" data-bn="বাকি" data-en="Due">Due</p>
+<div class="flex justify-around text-[10px]">
+<div><span class="text-red-400 block data-lang" data-bn="দেনা" data-en="Given">Given</span><span class="font-bold text-red-500"><span class="currency-symbol">৳</span>0</span></div>
+<div><span class="text-green-400 block data-lang" data-bn="পাওনা" data-en="Taken">Taken</span><span class="font-bold text-green-500"><span class="currency-symbol">৳</span>0</span></div>
+</div>
+</div>
+<div>
+<p class="text-gray-500 mb-0.5 data-lang" data-bn="মোট স্টক" data-en="Stock Count">Stock Count</p>
+<p class="font-bold text-green-600 text-sm">1,664</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex flex-col items-center justify-center space-y-2 active:bg-gray-50 transition">
+<div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl">
+<i class="fa-solid fa-boxes-stacked"></i>
+</div>
+<span class="font-bold text-gray-700 text-sm data-lang" data-bn="ক্রয়" data-en="Purchase">Purchase</span>
+</button>
+<button class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex flex-col items-center justify-center space-y-2 active:bg-gray-50 transition">
+<div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl">
+<i class="fa-solid fa-basket-shopping"></i>
+</div>
+<span class="font-bold text-gray-700 text-sm data-lang" data-bn="বিক্রয়" data-en="Sell">Sell</span>
+</button>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-gray-50 px-4 py-2 text-xs font-bold text-gray-500 border-b data-lang" data-bn="খাতা সমূহ" data-en="Book List">Book List</div>
+<div class="grid grid-cols-4 gap-2 p-3 text-center">
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg" onclick="openKhataPage()">
+<i class="fa-solid fa-clipboard-list text-2xl text-emerald-500 mb-1 khata-animated-icon"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="ক্রয় খাতা" data-en="Purchase Book">Purchase Book</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-file-invoice-dollar text-2xl text-amber-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="বিক্রয় খাতা" data-en="Sales Book">Sales Book</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-book text-2xl text-red-400 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="বাকি খাতা" data-en="Due Book">Due Book</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-wallet text-2xl text-indigo-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="খরচ খাতা" data-en="Expenses Book">Expenses Book</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-gray-50 px-4 py-2 text-xs font-bold text-gray-500 border-b data-lang" data-bn="আপনার ব্যবসার জন্য" data-en="For your business">For your business</div>
+<div class="grid grid-cols-4 gap-2 p-3 text-center">
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-users text-2xl text-teal-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="কন্টাক্টস" data-en="Contacts">Contacts</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-boxes-packing text-2xl text-orange-400 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="পণ্য তালিকা" data-en="Product List">Product List</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-warehouse text-2xl text-blue-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="স্টক খাতা" data-en="Stock Book">Stock Book</p>
+</div>
+<div class="p-2 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-chart-pie text-2xl text-purple-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="রিপোর্ট" data-en="Business Report">Business Report</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-gray-50 px-4 py-2 text-xs font-bold text-gray-500 border-b data-lang" data-bn="অন্যান্য" data-en="Others">Others</div>
+<div class="grid grid-cols-4 gap-y-4 gap-x-2 p-3 text-center">
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-cash-register text-2xl text-stone-600 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="ক্যাশ বক্স" data-en="Cash Box">Cash Box</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-user-gear text-2xl text-sky-600 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="অ্যাপ অ্যাক্সেস" data-en="App Access">App Access</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-comment-sms text-2xl text-blue-400 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="মার্কেটিং" data-en="Marketing">Marketing</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-mobile-screen-button text-2xl text-indigo-600 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="টপ আপ" data-en="Top Up">Top Up</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-shield-halved text-2xl text-yellow-600 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="ওয়ারেন্টি" data-en="Warranty">Warranty</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-calendar-xmark text-2xl text-red-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="মেয়াদোত্তীর্ণ পণ্য" data-en="Expire Product">মেয়াদোত্তীর্ণ পণ্য</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-print text-2xl text-slate-500 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="প্রিন্টার" data-en="Printer">Printer</p>
+</div>
+<div class="p-1 cursor-pointer hover:bg-gray-50 rounded-lg">
+<i class="fa-solid fa-trash-can text-2xl text-red-600 mb-1"></i>
+<p class="text-[11px] font-medium leading-tight data-lang" data-bn="রিসাইকেল বিন" data-en="Recycle Bin">রিসাইকেল বিন</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-30">
+<div class="max-w-md mx-auto grid grid-cols-3 h-16">
+<button class="flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition" onclick="openKhataPage()">
+<i class="fa-solid fa-book-open text-lg"></i>
+<span class="text-[10px] font-semibold mt-1 data-lang" data-bn="খাতা" data-en="Khata">Khata</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-amber-50 text-amber-500 transition border-t-2 border-amber-500">
+<i class="fa-solid fa-house text-lg"></i>
+<span class="text-[10px] font-bold mt-1 data-lang" data-bn="হোম" data-en="Home">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition">
+<i class="fa-solid fa-wallet text-lg"></i>
+<span class="text-[10px] font-semibold mt-1 data-lang" data-bn="ওয়ালেট" data-en="Wallet">Wallet</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-50 z-50 hidden overflow-y-auto flex flex-col" id="khataPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10 min-h-[52px]">
+<h3 class="font-bold text-base flex items-center gap-2 max-w-[70%] truncate">
+<i class="fa-solid fa-book-open khata-animated-icon"></i> <span id="khataPageTitle"></span>
+</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1" onclick="closeKhataPage()">
+                Back
+            </button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-4 flex-1 pb-24 relative">
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-white border border-gray-100 p-3 rounded-xl shadow-sm flex flex-col justify-between min-h-[75px]">
+<span class="text-xs text-gray-500 font-medium">Total Receivable</span>
+<p class="text-base font-black text-green-600 mt-1"><span class="currency-symbol">৳</span>0.00</p>
+</div>
+<div class="bg-white border border-gray-100 p-3 rounded-xl shadow-sm flex flex-col justify-between min-h-[75px]">
+<span class="text-xs text-gray-500 font-medium">Total Payable</span>
+<p class="text-base font-black text-red-500 mt-1"><span class="currency-symbol">৳</span>0.00</p>
+</div>
+<div class="bg-white border border-gray-100 p-3 rounded-xl shadow-sm flex items-center space-x-3 cursor-pointer active:bg-gray-50 transition">
+<div class="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-sm">
+<i class="fa-solid fa-users-gear"></i>
+</div>
+<div>
+<p class="font-bold text-gray-800 text-xs">বাকি তাগাদা</p>
+<p class="text-[9px] text-gray-400">remaining account</p>
+</div>
+</div>
+<div class="bg-white border border-gray-100 p-3 rounded-xl shadow-sm flex items-center space-x-3 cursor-pointer active:bg-gray-50 transition">
+<div class="w-9 h-9 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-sm">
+<i class="fa-solid fa-bell"></i>
+</div>
+<div>
+<p class="font-bold text-gray-800 text-xs">জমা তাগাদা</p>
+<p class="text-[9px] text-gray-400">deposit request</p>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+<i class="fa-solid fa-magnifying-glass text-xs"></i>
+</span>
+<input class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 bg-white text-xs" placeholder="Search customer/supplier..." type="text"/>
+</div>
+<button class="p-2 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 text-gray-600 transition active:scale-95 flex items-center justify-center w-9 h-9">
+<i class="fa-solid fa-filter text-xs"></i>
+</button>
+<button class="p-2 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 text-gray-600 transition active:scale-95 flex items-center justify-center w-9 h-9">
+<i class="fa-solid fa-cloud-arrow-down text-xs"></i>
+</button>
+</div>
+<div class="border-2 border-dashed border-gray-200 rounded-xl py-12 text-center text-xs text-gray-400">
+<i class="fa-solid fa-address-book text-2xl mb-1 text-gray-300"></i>
+<p>No contacts have been added</p>
+</div>
+</div>
+<div class="fixed bottom-6 right-6 z-50 max-w-md mx-auto">
+<button class="bg-blue-600 text-white px-4 py-2.5 rounded-full font-bold hover:bg-blue-700 active:scale-95 transition text-xs shadow-xl flex items-center gap-1.5 border border-blue-500" onclick="openAddContactPage()">
+<i class="fa-solid fa-user-plus text-sm"></i>
+<span>Add Customer/Supplier</span>
+</button>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-50 z-50 hidden overflow-y-auto flex flex-col" id="addContactPage">
+<div class="bg-white px-4 py-3 border-b flex items-center sticky top-0 z-10 min-h-[52px]">
+<button class="text-xl text-gray-800 p-1 mr-3 active:scale-90 transition" onclick="closeAddContactPage()">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+<h3 class="font-bold text-base text-gray-800">New Customer/Supplier</h3>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-5 flex-1 pb-28">
+<div class="flex items-center space-x-4">
+<div class="w-14 h-14 rounded-full bg-gray-200 border flex items-center justify-center text-gray-400 relative overflow-hidden">
+<i class="fa-solid fa-user text-2xl"></i>
+<div class="absolute bottom-0 right-0 left-0 bg-black/40 text-[9px] text-white text-center py-0.5 cursor-pointer">
+<i class="fa-solid fa-camera"></i>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-3">
+<label class="flex items-center justify-center space-x-2 border-2 border-red-600 p-2.5 rounded-xl bg-white cursor-pointer select-none">
+<input checked="" class="w-4 h-4 accent-red-600" name="contactType" type="radio" value="customer"/>
+<span class="text-xs font-bold text-red-600">Customer</span>
+</label>
+<label class="flex items-center justify-center space-x-2 border border-gray-300 p-2.5 rounded-xl bg-white cursor-pointer select-none">
+<input class="w-4 h-4 accent-gray-600" name="contactType" type="radio" value="supplier"/>
+<span class="text-xs font-bold text-gray-600">Supplier</span>
+</label>
+</div>
+</div>
+<button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition text-xs flex items-center justify-center gap-2 border border-gray-200 active:scale-[0.99]">
+<i class="fa-solid fa-address-book text-sm"></i>
+<span>Add from Phonebook</span>
+</button>
+<div class="space-y-4">
+<div class="relative border-2 border-red-600 rounded-xl p-1 bg-white focus-within:ring-2 focus-within:ring-red-200 transition">
+<span class="absolute -top-2 left-3 bg-white px-1 text-[10px] font-bold text-red-600 uppercase">Name</span>
+<div class="flex items-center pl-2">
+<i class="fa-solid fa-user text-gray-400 text-xs mr-2"></i>
+<input class="w-full p-2 text-xs text-gray-800 bg-transparent focus:outline-none font-medium" placeholder="Test" type="text"/>
+</div>
+</div>
+<div class="relative border border-gray-300 rounded-xl p-1 bg-white focus-within:border-blue-500 transition">
+<div class="flex items-center pl-2">
+<i class="fa-solid fa-phone text-gray-400 text-xs mr-2"></i>
+<input class="w-full p-2 text-xs text-gray-800 bg-transparent focus:outline-none placeholder-gray-400 font-medium" placeholder="Mobile Number" type="tel"/>
+</div>
+</div>
+<div class="relative border border-gray-300 rounded-xl p-1 bg-white focus-within:border-blue-500 transition">
+<div class="flex items-center pl-2">
+<span class="text-gray-500 font-bold text-sm mr-2">৳</span>
+<input class="w-full p-2 text-xs text-gray-800 bg-transparent focus:outline-none placeholder-gray-400 font-medium" placeholder="Previous Balance" type="number"/>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center text-[11px] text-gray-600 font-bold">
+<button class="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-1 border active:scale-95 transition">
+<i class="fa-solid fa-calendar-days text-gray-500"></i>
+<span>21 May</span>
+</button>
+<button class="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg flex items-center gap-1 border active:scale-95 transition">
+<i class="fa-solid fa-camera text-gray-500"></i>
+<span>Photo</span>
+</button>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t max-w-md mx-auto w-full z-10">
+<button class="w-full bg-red-700 text-white py-3 rounded-full font-bold hover:bg-red-800 active:scale-95 transition text-xs shadow-md uppercase tracking-wider" onclick="saveNewContact()">
+                Confirm
+            </button>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-100 z-50 hidden overflow-y-auto flex flex-col" id="settingsPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2">
+<i class="fa-solid fa-sliders"></i> <span class="data-lang" data-bn="সেটিংস মেনু" data-en="Settings Menu">Settings Menu</span>
+</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1 data-lang" data-bn="ফিরুন" data-en="Back" onclick="closeSettingsPage()">
+                Back
+            </button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-3 flex-1">
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition" onclick="openProfileSettings()">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg">
+<i class="fa-solid fa-user-gear"></i>
+</div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="প্রোফাইল সেটিং" data-en="Profile Setting">Profile Setting</p>
+<p class="text-[11px] text-gray-400 data-lang" data-bn="মালিকের প্রোফাইল ও দোকানের তথ্য পরিবর্তন" data-en="Manage owner profile &amp; shop documents">Manage owner profile &amp; shop documents</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition" onclick="openAppSubSettings()">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 bg-yellow-100 text-amber-600 rounded-lg flex items-center justify-center text-lg">
+<i class="fa-solid fa-laptop-code"></i>
+</div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="আল্লাহর দান অ্যাপ সেটিং" data-en="Allahar daan app setting">Allahar daan app setting</p>
+<p class="text-[11px] text-gray-400 data-lang" data-bn="অ্যাপ্লিকেশন পছন্দ এবং ফিচার কনফিগার করুন" data-en="Configure application preferences &amp; features">Configure application preferences &amp; features</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-50 z-50 hidden overflow-y-auto flex flex-col" id="profileSettingsPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2">
+<i class="fa-solid fa-id-card"></i> <span class="data-lang" data-bn="প্রোফাইল সেটিং" data-en="Profile Setting">Profile Setting</span>
+</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1 data-lang" data-bn="ফিরুন" data-en="Back" onclick="closeProfileSettings()">
+                Back
+            </button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-4 pb-20 text-sm">
+<div class="flex flex-col items-center justify-center border-b pb-4">
+<label class="cursor-pointer group flex flex-col items-center" for="logoUpload">
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-white group-hover:border-blue-500 overflow-hidden relative">
+<img alt="Logo" class="w-full h-full object-cover hidden" id="logoPreview" src=""/>
+<i class="fa-solid fa-camera text-xl text-gray-400 group-hover:text-blue-500" id="logoIcon"></i>
+</div>
+<span class="text-xs text-blue-500 font-semibold mt-1.5 data-lang" data-bn="লোগো আপলোড" data-en="Upload Logo">Upload Logo</span>
+</label>
+<input accept="image/*" class="hidden" id="logoUpload" onchange="previewImage(event)" type="file"/>
+<div class="flex items-center space-x-2 mt-3">
+<button class="px-3 py-1 bg-amber-500 text-white rounded-lg text-xs font-bold hover:bg-amber-600 active:scale-95 transition flex items-center gap-1" onclick="downloadImage()">
+<i class="fa-solid fa-download"></i> ডাউনলোড
+                    </button>
+<button class="px-3 py-1 bg-emerald-500 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 active:scale-95 transition flex items-center gap-1" onclick="shareImage()">
+<i class="fa-solid fa-share-nodes"></i> শেয়ার করুন
+                    </button>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="ব্যবসা প্রতিষ্ঠানের নাম" data-en="Business Name">Business Name</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" id="inputBizName" placeholder="e.g. Allahar Daan Variety Store" type="text" value="Allahar Daan Variety Store"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="মালিকের নাম" data-en="Owner Name">Owner Name</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" id="inputOwnerName" placeholder="e.g. Md. Abdul Rahman" type="text" value="Md. Abdul Rahman"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="ব্যবসা প্রতিষ্ঠানের ঠিকানা" data-en="Business Address">Business Address</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" id="inputAddress" placeholder="e.g. 12/A, Station Road, Dinajpur" type="text" value="12/A, Station Road, Dinajpur"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="মোবাইল নাম্বার" data-en="Mobile Number">Mobile Number</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" id="inputMobile" placeholder="e.g. 01712345678" type="tel" value="01712345678"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="লাইসেন্স নাম্বার" data-en="Trade License Number">Trade License Number</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" placeholder="e.g. TRAD/DNJ/2026/00452" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="টিন নাম্বার" data-en="TIN Number">TIN Number</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" placeholder="e.g. 123456789012" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="বিন নাম্বার" data-en="BIN Number">BIN Number</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" placeholder="e.g. 001234567-0101" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="ইমেল আইডি" data-en="Email ID">Email ID</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 placeholder-gray-400 bg-white" placeholder="e.g. info@allahardaan.com" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-600 uppercase mb-1 data-lang" data-bn="জন্ম তারিখ" data-en="Date of Birth">Date of Birth</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-gray-600 bg-white" type="date"/>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t max-w-md mx-auto w-full z-10 shadow-lg">
+<button class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 active:scale-95 transition text-sm shadow-md data-lang" data-bn="আপডেট করুন" data-en="UPDATE" onclick="updateProfileData()">
+                UPDATE
+            </button>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-100 z-50 hidden overflow-y-auto flex flex-col" id="appSubSettingsPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2">
+<i class="fa-solid fa-laptop-code"></i> <span class="data-lang" data-bn="অ্যাপ সেটিংস" data-en="App Settings">App Settings</span>
+</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1 data-lang" data-bn="ফিরুন" data-en="Back" onclick="closeAppSubSettings()">
+                Back
+            </button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-3 flex-1">
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-pink-100 text-pink-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-qrcode"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="বিকাশ/নগদ কিউআর সেটিং" data-en="Bkash/Nagad Qr Setting">Bkash/Nagad Qr Setting</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="মার্চেন্ট পেমেন্ট কিউআর ইমেজ নির্ধারণ করুন" data-en="Configure merchant payment QR images">Configure merchant payment QR images</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-tags"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="কাস্টম ক্যাটাগরি" data-en="Custom Category">Custom Category</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="ইনভেন্টরির জন্য কাস্টম লেবেল তৈরি করুন" data-en="Create custom labels for inventory">Create custom labels for inventory</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-calculator"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="ডেসিমেল পয়েন্ট" data-en="Decimal Point">Decimal Point</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="দশমিকের পরের সংখ্যা নির্ধারণ করুন" data-en="Set floating fractional matrix values">Set floating fractional matrix values</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="ডাটা ব্যাকআপ" data-en="Data Backup">Data Backup</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="ক্লাউড ডাটাবেজ সিনক্রোনাইজেশন" data-en="Secure cloud database synchronization">Secure cloud database synchronization</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-trash-can"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="রিসাইকেল বিন" data-en="Recycle Bin">Recycle Bin</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="ডিলিট করা আইটেম পুনরুদ্ধার বা মুছে ফেলুন" data-en="Restore or delete removed store items">Restore or delete removed store items</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-shield-halved"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="অ্যাপ লক" data-en="App Lock">App Lock</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="পিন বা বায়োমেট্রিক দিয়ে অ্যাপ লক করুন" data-en="Secure terminal via pin/biometrics credentials">Secure terminal via pin/biometrics credentials</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-sky-100 text-sky-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="ডাটা ডাউনলোড" data-en="Data Download">Data Download</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="লোকাল সিস্টেম লগ এবং অ্যাকাউন্ট রিপোর্ট এক্সপোর্ট করুন" data-en="Export local system logs and accounts reports">Export local system logs and accounts reports</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-red-100 text-red-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-power-off"></i></div>
+<div>
+<p class="font-bold text-red-600 text-sm data-lang" data-bn="অ্যাপ রিসেট" data-en="Reset the App">Reset the App</p>
+<p class="text-[10px] text-red-400 data-lang" data-bn="ক্যাশে কনফিগারেশন এবং ডাটা মুছে ফেলুন" data-en="Wipe cache configs and storage nodes">Wipe cache configs and storage nodes</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-red-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition" onclick="openLanguagePage()">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-language"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="ভাষা সেটিং" data-en="Language Setting">Language Setting</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="ইংরেজি এবং বাংলা ভাষার মধ্যে নির্বাচন করুন" data-en="Choose between English and Bangla system language">Choose between English and Bangla system language</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition" onclick="openCurrencyPage()">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-base"><i class="fa-solid fa-money-bill-wave"></i></div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="কারেন্সি সেটিং" data-en="Currency Setting">Currency Setting</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="সিস্টেমের মূল কারেন্সি সিম্বল সিলেক্ট করুন" data-en="Select system base currency asset symbol">Select system base currency asset symbol</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+<div class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:scale-[0.99] transition" onclick="openBusinessCardPage()">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-base">
+<i class="fa-solid fa-address-card"></i>
+</div>
+<div>
+<p class="font-bold text-gray-800 text-sm data-lang" data-bn="বিজনেস কার্ড" data-en="Business Card">Business Card</p>
+<p class="text-[10px] text-gray-400 data-lang" data-bn="আপনার কাস্টম ভিজিটিং কার্ড তৈরি এবং শেয়ার করুন" data-en="Generate and share your custom visiting card">Generate and share your custom visiting card</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-50 z-50 hidden overflow-y-auto flex flex-col" id="languagePage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2"><i class="fa-solid fa-language"></i> Language Setting</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1" onclick="closeLanguagePage()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+</div>
+<div class="max-w-md mx-auto w-full p-5 space-y-4 flex-1 text-sm">
+<p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Select System Language</p>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm cursor-pointer hover:bg-gray-50 transition">
+<span class="font-semibold text-gray-800">English</span>
+<input checked="" class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" name="systemLanguage" type="radio" value="en"/>
+</label>
+<label class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl shadow-sm cursor-pointer hover:bg-gray-50 transition">
+<span class="font-semibold text-gray-800">Bangla</span>
+<input class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300" name="systemLanguage" type="radio" value="bn"/>
+</label>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t max-w-md mx-auto w-full z-10 shadow-lg">
+<button class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 active:scale-95 transition text-sm shadow-md" onclick="saveLanguageConfig()">SAVE</button>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-50 z-50 hidden overflow-y-auto flex flex-col" id="currencyPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2"><i class="fa-solid fa-money-bill-wave"></i> Currency Setting</h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1" onclick="closeCurrencyPage()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 flex-1 flex flex-col text-sm h-full overflow-hidden">
+<div class="relative mb-4 flex-none">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400"><i class="fa-solid fa-magnifying-glass"></i></span>
+<input class="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 bg-white text-sm" id="currencySearchInput" onkeyup="filterCurrencies()" placeholder="Search currency..." type="text"/>
+</div>
+<div class="space-y-2 overflow-y-auto flex-1 pr-1 pb-20" id="currencyListContainer">
+<label class="currency-item flex items-center justify-between p-3.5 bg-white border-2 border-blue-500 rounded-xl" data-name="Bangladesh Taka BDT">
+<div class="flex items-center space-x-3">
+<div class="w-9 h-9 bg-green-100 text-green-600 font-bold rounded-lg flex items-center justify-center text-sm">৳</div>
+<div><p class="font-bold text-gray-800 text-xs">BDT</p><p class="text-[10px] text-gray-400">Bangladesh Taka</p></div>
+</div>
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300" name="systemCurrency" type="radio" value="৳"/>
+</label>
+<hr class="border-gray-200 my-2"/>
+<label class="currency-item flex items-center justify-between p-3.5 bg-white border border-gray-200 rounded-xl" data-name="United States Dollar USD">
+<div class="flex items-center space-x-3 border-gray-200">
+<div class="w-9 h-9 bg-gray-100 text-gray-600 font-bold rounded-lg flex items-center justify-center text-sm">$</div>
+<div><p class="font-bold text-gray-800 text-xs">USD</p><p class="text-[10px] text-gray-400">United States Dollar</p></div>
+</div>
+<input class="w-4 h-4 text-blue-600 border-gray-300" name="systemCurrency" type="radio" value="$"/>
+</label>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t max-w-md mx-auto w-full z-10 shadow-lg">
+<button class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 active:scale-95 transition text-sm shadow-md" onclick="saveCurrencyConfig()">SAVE</button>
+</div>
+</div>
+<div class="fixed inset-0 bg-gray-100 z-50 hidden overflow-y-auto flex flex-col" id="businessCardPage">
+<div class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-10">
+<h3 class="font-bold text-base flex items-center gap-2">
+<i class="fa-solid fa-address-card"></i> Business Card
+            </h3>
+<button class="text-sm px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded-lg active:scale-95 transition flex items-center gap-1" onclick="closeBusinessCardPage()">
+<i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+</div>
+<div class="max-w-md mx-auto w-full p-4 space-y-5 pb-24 text-sm flex-1">
+<div>
+<p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Select Card Design</p>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900 text-white p-5 rounded-2xl shadow-xl relative cursor-pointer active:scale-[0.99] transition-all duration-300 h-44 flex flex-col justify-between overflow-hidden border-2 border-blue-500/80" id="cardDesign1" onclick="selectCardDesign(1)">
+<div class="relative z-10">
+<p class="font-bold text-lg tracking-wide bg-gradient-to-r from-yellow-200 to-amber-300 bg-clip-text text-transparent" id="cardBizName1">Allahar Daan Variety Store</p>
+<p class="text-[10px] text-blue-200 font-medium tracking-wide mt-0.5" id="cardService1">Grocery &amp; Retail Supply Merchant</p>
+</div>
+<div class="relative z-10 text-[10px] space-y-1 pt-3 flex justify-between items-end">
+<div class="space-y-0.5">
+<p class="font-bold text-xs text-white" id="cardOwnerName1"><i class="fa-solid fa-user text-[9px] mr-1.5 text-yellow-300"></i>Md. Abdul Rahman</p>
+<p class="text-blue-100/90" id="cardAddress1"><i class="fa-solid fa-location-dot text-[9px] mr-1.5 text-yellow-300"></i>12/A, Station Road, Dinajpur</p>
+</div>
+<p class="bg-white/10 backdrop-blur-md px-2.5 py-1 rounded-lg text-yellow-300 font-extrabold shadow-sm" id="cardMobile1"><i class="fa-solid fa-phone text-[8px] mr-1"></i>01712345678</p>
+</div>
+</div>
+<div class="bg-slate-900 text-gray-100 p-5 rounded-2xl shadow-xl relative cursor-pointer active:scale-[0.99] transition-all duration-300 h-44 flex flex-col justify-between overflow-hidden border-2 border-transparent" id="cardDesign2" onclick="selectCardDesign(2)">
+<div class="flex justify-between items-start relative z-10">
+<div>
+<p class="font-black text-base tracking-tight text-white" id="cardBizName2">Allahar Daan Variety Store</p>
+<p class="text-[9px] text-emerald-400 font-bold uppercase tracking-widest mt-0.5" id="cardService2">Grocery &amp; Retail Supply Merchant</p>
+</div>
+<div class="w-7 h-7 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-full shadow-inner opacity-90"></div>
+</div>
+<div class="text-[10px] grid grid-cols-2 gap-2 pt-3 relative z-10">
+<div class="flex flex-col justify-end">
+<span class="text-gray-500 text-[8px] uppercase tracking-wider font-semibold">Proprietor</span>
+<span class="font-bold text-amber-400 text-xs mt-0.5" id="cardOwnerName2">Md. Abdul Rahman</span>
+</div>
+<div class="text-right flex flex-col justify-end items-end space-y-0.5">
+<span class="block font-black text-white text-xs bg-slate-800 px-2 py-0.5 rounded-md border border-slate-700" id="cardMobile2">01712345678</span>
+<span class="text-gray-400 block text-[9px] max-w-full truncate" id="cardAddress2">12/A, Station Road, Dinajpur</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-3 rounded-xl border border-gray-200 shadow-sm space-y-2" id="cardActionsPanel">
+<p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight text-center">Execute Card Action</p>
+<div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-bold text-gray-600">
+<button class="p-2 bg-gray-50 rounded-lg active:bg-gray-100 flex flex-col items-center gap-1 text-blue-600" onclick="triggerAction('Share')">
+<i class="fa-solid fa-share-nodes text-base"></i><span>Share</span>
+</button>
+<button class="p-2 bg-gray-50 rounded-lg active:bg-gray-100 flex flex-col items-center gap-1 text-green-600" onclick="triggerAction('WhatsApp')">
+<i class="fa-brands fa-whatsapp text-base"></i><span>WhatsApp</span>
+</button>
+<button class="p-2 bg-gray-50 rounded-lg active:bg-gray-100 flex flex-col items-center gap-1 text-sky-500" onclick="triggerAction('Messenger')">
+<i class="fa-brands fa-facebook-messenger text-base"></i><span>Messenger</span>
+</button>
+<button class="p-2 bg-gray-50 rounded-lg active:bg-gray-100 flex flex-col items-center gap-1 text-amber-600" onclick="triggerAction('Image')">
+<i class="fa-solid fa-file-image text-base"></i><span>Image</span>
+</button>
+<button class="p-2 bg-gray-50 rounded-lg active:bg-gray-100 flex flex-col items-center gap-1 text-red-500" onclick="triggerAction('PDF')">
+<i class="fa-solid fa-file-pdf text-base"></i><span>PDF</span>
+</button>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-3">
+<p class="text-xs font-bold text-gray-500 uppercase tracking-wider border-b pb-1">Card Content Field</p>
+<div>
+<label class="block text-xs font-bold text-gray-600 mb-1">What services do you provide? (Custom Field)</label>
+<input class="w-full p-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 bg-gray-50 font-medium" id="inputCustomService" placeholder="e.g. Retail Shop, Electronics Repair, Wholesale Supply" type="text" value="Grocery &amp; Retail Supply Merchant"/>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-3 bg-white border-t max-w-md mx-auto w-full z-10 shadow-lg">
+<button class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 active:scale-95 transition text-sm shadow-md" onclick="saveBusinessCardConfig()">
+                SAVE
+            </button>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
+
+<div class="hidden fixed inset-0 bg-black/30 z-[9999] flex items-center justify-center" id="globalLoader">
+<div class="bg-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3">
+<div class="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+<span class="text-sm font-bold text-gray-700">Loading...</span>
+</div>
+</div>
+<script src="./js/app.js" type="module"></script></body>
+</html>

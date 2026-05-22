@@ -1,0 +1,19 @@
+
+        /* স্থির লেখার ওপর চমৎকার এবং মৃদু গ্লোয়িং অ্যানিমেশন ইফেক্ট */
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 2px rgba(253, 224, 71, 0.4); opacity: 0.85; }
+            50% { text-shadow: 0 0 8px rgba(253, 224, 71, 0.8); opacity: 1; }
+        }
+        .glowing-text {
+            animation: textGlow 3s infinite ease-in-out;
+        }
+        /* খাতা হিসাবের আইকনের জন্য চমৎকার অ্যানিমেশন */
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(16, 185, 129, 0)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); }
+        }
+        .khata-animated-icon {
+            animation: iconPulse 2.5s infinite ease-in-out;
+            display: inline-block;
+        }
+    
